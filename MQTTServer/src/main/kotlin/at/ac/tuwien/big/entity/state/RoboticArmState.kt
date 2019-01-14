@@ -1,7 +1,7 @@
 package at.ac.tuwien.big.entity.state
 
 /**
- * State of the robotic arm
+ * State of the roboticArm
  */
 data class RoboticArmState(
         override var name: String = "Snapshot",

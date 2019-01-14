@@ -1,7 +1,7 @@
 package at.ac.tuwien.big.entity.state
 
 /**
- * State of the testing rig
+ * State of the testingRig
  */
 data class TestingRigState(
         override var name: String = "Snapshot",
