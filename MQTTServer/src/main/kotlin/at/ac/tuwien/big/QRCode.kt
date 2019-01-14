@@ -16,14 +16,14 @@ import java.util.*
 import javax.imageio.ImageIO
 
 /**
- * Service for handling QR codes
+ * Read and write QR codes
  */
 object QRCode {
 
     /**
      * Reads a QR code and creates a textual code representation
      * @param base64Image the encoded image
-     * @return the code in [ProductCode], or [null] if an error occurred
+     * @return the code in [ProductCode], or null if an error occurred
      */
     fun read(base64Image: String): ProductCode? {
 
@@ -39,7 +39,7 @@ object QRCode {
             val text = result.text.split(",")
             if (text.size == 3) {
                 val code = ProductCode(text[0], text[1], text[2], null)
-                code.base64 = CameraSignal.toBase64(write(code))
+                code.base64 = toBase64(write(code))
                 return code
             } else {
                 return null
@@ -57,9 +57,9 @@ object QRCode {
     fun write(code: ProductCode): ByteArray {
 
         val hintMap = EnumMap<EncodeHintType, Any>(EncodeHintType::class.java)
-        hintMap.put(EncodeHintType.CHARACTER_SET, "UTF-8")
-        hintMap.put(EncodeHintType.MARGIN, 1)
-        hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L)
+        hintMap[EncodeHintType.CHARACTER_SET] = "UTF-8"
+        hintMap[EncodeHintType.MARGIN] = 1
+        hintMap[EncodeHintType.ERROR_CORRECTION] = ErrorCorrectionLevel.L
 
         val writer = QRCodeWriter()
         val text = "${code.id},${code.batchId},${code.color}"
@@ -71,8 +71,8 @@ object QRCode {
         graphics.fillRect(0, 0, image.width, image.height)
         graphics.color = Color.BLACK
 
-        for (i in 0..image.width - 1) {
-            for (j in 0..image.height - 1) {
+        for (i in 0 until image.width) {
+            for (j in 0 until image.height) {
                 if (matrix.get(i, j)) {
                     graphics.fillRect(i, j, 1, 1)
                 }
