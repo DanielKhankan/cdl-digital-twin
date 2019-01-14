@@ -14,6 +14,7 @@ class EventProcessingTest {
                 println(new)
             }
         })
+        /*
         cep.submitEvent(StateMachineSimulation.States.idle)
         cep.submitEvent(StateMachineSimulation.States.approach)
         cep.submitEvent(StateMachineSimulation.States.pickup)
@@ -23,5 +24,6 @@ class EventProcessingTest {
         cep.submitEvent(StateMachineSimulation.States.fullRelease)
         cep.submitEvent(StateMachineSimulation.States.depositGreen)
         cep.submitEvent(StateMachineSimulation.States.releaseGreen)
+        */
     }
 }

@@ -1,6 +1,6 @@
 package at.ac.tuwien.big
 
-import at.ac.tuwien.big.StateMachineSimulation.States.all
+//import at.ac.tuwien.big.StateMachineSimulation.States.all
 import at.ac.tuwien.big.entity.state.StateEvent
 import org.junit.Test
 import kotlin.reflect.KProperty1
@@ -16,6 +16,7 @@ class StateMachineTest {
         val basicStateEventType: KType = StateEvent::class.createType()
         val builder = StringBuilder()
 
+        /*
         StateMachineSimulation.States::class.declaredMemberProperties.forEach { it: KProperty1<StateMachineSimulation.States, *> ->
             if (it.returnType.isSubtypeOf(basicStateEventType)) {
                 val value: StateEvent? = it.get(StateMachineSimulation.States) as StateEvent
@@ -24,7 +25,7 @@ class StateMachineTest {
                 }
             }
         }
-
+        */
         assert(builder.isEmpty()) {
             builder.toString()
         }

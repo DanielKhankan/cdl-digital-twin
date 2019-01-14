@@ -6,9 +6,9 @@ package at.ac.tuwien.big.entity.state
 data class ConveyorState(
         override var name: String = "Snapshot",
         override var entity: String = "Conveyor",
-        val inPickupWindow: Boolean? = null
+        val inPickupWindow: Boolean? = null,
         val detected: Boolean? = null,
-        val adjusterPosition: Double? = null,
+        val adjusterPosition: Double? = null
 ) : StateEvent {
     override fun match(other: StateEvent, similar: (Double, Double) -> Boolean): Boolean {
         return if (other is ConveyorState) {

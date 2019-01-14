@@ -17,8 +17,8 @@ class EventProcessing {
     init {
         val config = Configuration()
         config.addEventType("RoboticArmState", RoboticArmState::class.java.name)
-        config.addEventType("SliderState", SliderState::class.java.name)
         config.addEventType("ConveyorState", ConveyorState::class.java.name)
+        config.addEventType("SliderState", SliderState::class.java.name)
         config.addEventType("Gate", GatePassed::class.java.name)
         val cep = EPServiceProviderManager.getProvider("CEPEngine", config)
         runtime = cep.epRuntime
