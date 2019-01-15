@@ -170,9 +170,9 @@ class MessageController(private val mqtt: MQTT,
         val basicState = gson.fromJson(payload, BasicStateEvent::class.java)
         return when (basicState.entity) {
             "RoboticArm" -> gson.fromJson(payload, RoboticArmState::class.java)
-            "Slider" -> gson.fromJson(payload, SliderState::class.java)
             "Conveyor" -> gson.fromJson(payload, ConveyorState::class.java)
             "TestingRig" -> gson.fromJson(payload, TestingRigState::class.java)
+            "Slider" -> gson.fromJson(payload, SliderState::class.java)
             "Gate" -> gson.fromJson(payload, GatePassed::class.java)
             else -> BasicStateEvent()
         }
