@@ -74,13 +74,13 @@ class MessageController(private val mqtt: MQTT,
         when (topic) {
             sensor, simSensor -> {
                 val state = parse(message)
-                /*if (recording) {
+                if (recording) {
                     if (state is RoboticArmState) {
                         val ref = ResidualError.getReference(System.currentTimeMillis())
                         val label = if (lastInTransition) null else StateObserver.targetState.name
                         timeSeriesDatabase.savePoint(state, ref, label)
                     }
-                }*/
+                }
                 StateObserver.update(state)
                 sendWebSocketMessageSensor(gson.toJson(state))
             }
@@ -129,6 +129,10 @@ class MessageController(private val mqtt: MQTT,
                     if (transition is RoboticArmTransition) {
                         if (!lastInTransition && nowInTransition) {
                             println("Next: ${latest.name} -> ${StateObserver.targetState.name}")
+                            ResidualError.start(transition)
+                        }
+                        if (lastInTransition && !nowInTransition) {
+                            ResidualError.stop()
                         }
                     }
                     val context = StateObserver.latestMatch
