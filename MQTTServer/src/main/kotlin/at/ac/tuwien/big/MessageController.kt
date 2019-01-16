@@ -74,13 +74,8 @@ class MessageController(private val mqtt: MQTT,
         when (topic) {
             sensor, simSensor -> {
                 val state = parse(message)
-                /*if (recording) {
-                    if (state is RoboticArmState) {
-                        val ref = ResidualError.getReference(System.currentTimeMillis())
-                        val label = if (lastInTransition) null else StateObserver.targetState.name
-                        timeSeriesDatabase.savePoint(state, ref, label)
-                    }
-                }*/
+                val label = if (lastInTransition) null else StateObserver.targetState.name
+                timeSeriesDatabase.savePoint(state, label)
                 StateObserver.update(state)
                 sendWebSocketMessageSensor(gson.toJson(state))
             }
