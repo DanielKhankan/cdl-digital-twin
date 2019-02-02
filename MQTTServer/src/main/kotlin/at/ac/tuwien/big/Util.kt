@@ -1,7 +1,6 @@
 package at.ac.tuwien.big
 
 import at.ac.tuwien.big.entity.state.StateEvent
-import com.sun.org.apache.xpath.internal.operations.Bool
 import java.util.*
 
 /**
@@ -23,7 +22,7 @@ fun similar(a: Double?, b: Double?, accuracy: Double) : Boolean {
         return Math.abs(a - b) <= accuracy
     }
 
-    return true;
+    return true
 }
 /**
  * Encode a given image in the *png* file format in Base64.
