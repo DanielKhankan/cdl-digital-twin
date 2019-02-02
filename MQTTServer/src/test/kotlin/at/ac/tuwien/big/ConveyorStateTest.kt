@@ -84,9 +84,11 @@ class ConveyorStateTest {
         val state2 = ConveyorState(detected = true, inPickupWindow = true, adjusterPosition = null)
 
         // Act
-        val match = state1.match(state2, singleAccuracy)
+        val match1 = state1.match(state2, singleAccuracy)
+        var match2 = state2.match(state1, singleAccuracy)
 
         // Assert
-        Assert.assertTrue(match)
+        Assert.assertTrue(match1)
+        Assert.assertTrue(match2)
     }
 }

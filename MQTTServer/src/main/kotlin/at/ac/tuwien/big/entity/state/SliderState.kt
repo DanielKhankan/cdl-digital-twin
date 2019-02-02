@@ -8,7 +8,7 @@ data class SliderState(
         override var entity: String = "Slider",
         var sliderPosition: Double = 0.0
 ) : StateEvent {
-    override fun match(other: StateEvent, similar: (Double, Double) -> Boolean): Boolean {
+    override fun match(other: StateEvent, similar: DoubleCompareFunction): Boolean {
         return if (other is SliderState) {
             similar(this.sliderPosition, other.sliderPosition)
         } else {

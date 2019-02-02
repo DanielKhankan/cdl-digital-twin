@@ -1,24 +1,30 @@
 package at.ac.tuwien.big
 
 import at.ac.tuwien.big.entity.state.StateEvent
+import com.sun.org.apache.xpath.internal.operations.Bool
 import java.util.*
 
 /**
  * Check similarity of floating point numbers with a precision of 0.2
  */
-val singleAccuracy = { x: Double, y: Double -> similar(x, y, 0.2) }
+val singleAccuracy = { x: Double?, y: Double? -> similar(x, y, 0.2) }
 
 /**
  * Check similarity of floating point numbers with a precision of 0.02
  */
-val doubleAccuracy = { x: Double, y: Double -> similar(x, y, 0.03) }
+val doubleAccuracy = { x: Double?, y: Double? -> similar(x, y, 0.03) }
 
 /**
  * Equality check with an epsilon of 0.02
  * @return true, if the distance between the two real numbers is < 0.02 and false otherwise
  */
-fun similar(a: Double, b: Double, accuracy: Double) = Math.abs(a - b) <= accuracy
+fun similar(a: Double?, b: Double?, accuracy: Double) : Boolean {
+    if (a != null && b != null) {
+        return Math.abs(a - b) <= accuracy
+    }
 
+    return true;
+}
 /**
  * Encode a given image in the *png* file format in Base64.
  * @return the Base64 encoded image

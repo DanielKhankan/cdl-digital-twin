@@ -11,7 +11,7 @@ data class TestingRigState(
         val heatplateTemperature: Double? = null
 ) : StateEvent {
 
-    override fun match(other: StateEvent, similar: (Double, Double) -> Boolean): Boolean {
+    override fun match(other: StateEvent, similar: DoubleCompareFunction): Boolean {
         return if (other is TestingRigState) {
             val platform = if (this.platformPosition != null && other.platformPosition != null) {
                 similar(this.platformPosition, other.platformPosition)

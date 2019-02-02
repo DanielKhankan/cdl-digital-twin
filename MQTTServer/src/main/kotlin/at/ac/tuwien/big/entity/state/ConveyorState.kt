@@ -10,14 +10,9 @@ data class ConveyorState(
         val detected: Boolean? = null,
         val adjusterPosition: Double? = null
 ) : StateEvent {
-    override fun match(other: StateEvent, similar: (Double, Double) -> Boolean): Boolean {
+    override fun match(other: StateEvent, similar: DoubleCompareFunction): Boolean {
         return if (other is ConveyorState) {
-            val adjusterSimilar = if (this.adjusterPosition != null && other.adjusterPosition != null) {
-                similar(this.adjusterPosition, other.adjusterPosition)
-            } else {
-                true
-            }
-            return adjusterSimilar
+            return similar(this.adjusterPosition, other.adjusterPosition)
                     && (other.detected == null || this.detected == other.detected)
                     && (other.inPickupWindow == null || this.inPickupWindow == other.inPickupWindow)
         } else {

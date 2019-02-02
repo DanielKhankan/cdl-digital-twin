@@ -7,5 +7,5 @@ data class BasicStateEvent(
         override var name: String = "Basic",
         override var entity: String = "Empty"
 ) : StateEvent {
-    override fun match(other: StateEvent, similar: (Double, Double) -> Boolean) = this == other
+    override fun match(other: StateEvent, similar: DoubleCompareFunction) = this == other
 }

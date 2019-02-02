@@ -8,5 +8,5 @@ data class GatePassed(
         override var entity: String = "Gate",
         var channel: String
 ) : StateEvent {
-    override fun match(other: StateEvent, similar: (Double, Double) -> Boolean) = this == other
+    override fun match(other: StateEvent, similar: DoubleCompareFunction) = this == other
 }
