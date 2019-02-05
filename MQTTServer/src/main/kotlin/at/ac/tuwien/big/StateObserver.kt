@@ -39,26 +39,29 @@ object StateObserver : Observable<BasicState>() {
     fun update(e: StateEvent) {
         when (e) {
             is RoboticArmState -> {
-                snapshot = snapshot.copy(roboticArmState = e)
+                val currentState = snapshot.roboticArmState ?: RoboticArmState()
+                val newState = currentState.copy(
+                        handPosition = e.handPosition ?: currentState.handPosition)
+                snapshot = snapshot.copy(roboticArmState = newState)
+            }
+            is ConveyorState -> {
+                val currentState = snapshot.conveyorState ?: ConveyorState()
+                val newState = currentState.copy(
+                    inPickupWindow = e.inPickupWindow ?: currentState.inPickupWindow,
+                    detected = e.detected ?: currentState.detected,
+                    adjusterPosition = e.adjusterPosition ?: currentState.adjusterPosition)
+                snapshot = snapshot.copy(conveyorState = newState)
+            }
+            is TestingRigState -> {
+                val currentState = snapshot.testingRigState ?: TestingRigState()
+                val newState = currentState.copy(
+                    objectCategory = e.objectCategory ?: currentState.objectCategory,
+                    platformPosition = e.platformPosition ?: currentState.platformPosition,
+                    heatplateTemperature = e.heatplateTemperature ?: currentState.heatplateTemperature)
+                snapshot = snapshot.copy(testingRigState = newState)
             }
             is SliderState -> {
                 snapshot = snapshot.copy(sliderState = e)
-            }
-            is ConveyorState -> {
-                val c = snapshot.conveyorState ?: ConveyorState()
-                val cNew = c.copy(
-                        adjusterPosition = e.adjusterPosition ?: c.adjusterPosition,
-                        detected = e.detected ?: c.detected,
-                        inPickupWindow = e.inPickupWindow ?: c.inPickupWindow)
-                snapshot = snapshot.copy(conveyorState = cNew)
-            }
-            is TestingRigState -> {
-                val t = snapshot.testingRigState ?: TestingRigState()
-                val tNew = t.copy(
-                        objectCategory = e.objectCategory ?: t.objectCategory,
-                        platformPosition = e.platformPosition ?: t.platformPosition,
-                        heatplateTemperature = e.heatplateTemperature ?: t.heatplateTemperature)
-                snapshot = snapshot.copy(testingRigState = tNew)
             }
         }
         val match = matchState(snapshot)
