@@ -8,9 +8,9 @@ import at.ac.tuwien.big.singleAccuracy
  */
 data class Environment(
         val roboticArmState: RoboticArmState? = null,
-        val sliderState: SliderState? = null,
         val conveyorState: ConveyorState? = null,
-        val testingRigState: TestingRigState? = null
+        val testingRigState: TestingRigState? = null,
+        val sliderState: SliderState? = null
 ) {
     infix fun matches(next: Environment): Boolean {
         return (next.roboticArmState == null || this.roboticArmState?.match(next.roboticArmState, doubleAccuracy) ?: true)
