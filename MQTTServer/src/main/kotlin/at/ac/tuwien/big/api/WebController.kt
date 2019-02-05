@@ -147,11 +147,11 @@ class WebController(private val mqtt: MQTT,
                     if (env.conveyorState != null) {
                         commands.addAll(StateObserver.transform(ConveyorTransition(ConveyorState(), env.conveyorState)))
                     }
-                    if (env.sliderState != null) {
-                        commands.addAll(StateObserver.transform(SliderTransition(SliderState(), env.sliderState)))
-                    }
                     if (env.testingRigState != null) {
                         commands.addAll(StateObserver.transform(TestingRigTransition(TestingRigState(), env.testingRigState)))
+                    }
+                    if (env.sliderState != null) {
+                        commands.addAll(StateObserver.transform(SliderTransition(SliderState(), env.sliderState)))
                     }
                     for (c in commands) {
                         mqtt.send(c)
@@ -165,14 +165,9 @@ class WebController(private val mqtt: MQTT,
             get("/all") { ctx -> ctx.json(StateObserver.stateMachine?.states!!) }
 
             /**
-             * Get the current robotic arm state
+             * Get the current roboticArm state
              */
             get("/roboticArmState") { ctx -> ctx.json(StateObserver.latestMatch.first.environment.roboticArmState!!) }
-
-            /**
-             * Get the current slider state
-             */
-            get("/sliderState") { ctx -> ctx.json(StateObserver.latestMatch.first.environment.sliderState!!) }
 
             /**
              * Get the current conveyor state
@@ -180,29 +175,23 @@ class WebController(private val mqtt: MQTT,
             get("/conveyorState") { ctx -> ctx.json(StateObserver.latestMatch.first.environment.conveyorState!!) }
 
             /**
-             * Get the current testing rig state
+             * Get the current testingRig state
              */
             get("/testingRigState") { ctx -> ctx.json(StateObserver.latestMatch.first.environment.testingRigState!!) }
 
             /**
-             * Set the current robotic arm state
+             * Get the current slider state
+             */
+            get("/sliderState") { ctx -> ctx.json(StateObserver.latestMatch.first.environment.sliderState!!) }
+
+            /**
+             * Set the current roboticArm state
              */
             put("/roboticArmState") { ctx ->
                 run {
                     val match = StateObserver.stateMachine?.all()?.find { it.name == ctx.body() }
                     if (match != null)
                         send(RoboticArmTransition(RoboticArmState(), match.environment.roboticArmState!!))
-                }
-            }
-
-            /**
-             * Set the current slider state
-             */
-            put("/sliderState") { ctx ->
-                run {
-                    val match = StateObserver.stateMachine?.all()?.find { it.name == ctx.body() }
-                    if (match != null)
-                        send(SliderTransition(SliderState(), match.environment.sliderState!!))
                 }
             }
 
@@ -218,7 +207,7 @@ class WebController(private val mqtt: MQTT,
             }
 
             /**
-             * Set urn the current testing rig state
+             * Set the current testingRig state
              */
             put("/testingRigState") { ctx ->
                 run {
@@ -228,6 +217,16 @@ class WebController(private val mqtt: MQTT,
                 }
             }
 
+            /**
+             * Set the current slider state
+             */
+            put("/sliderState") { ctx ->
+                run {
+                    val match = StateObserver.stateMachine?.all()?.find { it.name == ctx.body() }
+                    if (match != null)
+                        send(SliderTransition(SliderState(), match.environment.sliderState!!))
+                }
+            }
             /**
              * Return the list of jobs
              */
