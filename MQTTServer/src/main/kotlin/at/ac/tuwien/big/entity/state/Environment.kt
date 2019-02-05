@@ -15,7 +15,7 @@ data class Environment(
     infix fun matches(next: Environment): Boolean {
         return (next.roboticArmState == null || this.roboticArmState?.match(next.roboticArmState, doubleAccuracy) ?: true)
                 && (next.conveyorState == null || this.conveyorState?.match(next.conveyorState, doubleAccuracy) ?: true)
-                && (next.testingRigState == null || this.testingRigState?.match(next.testingRigState, singleAccuracy) ?: true)
+                && (next.testingRigState == null || this.testingRigState?.match(next.testingRigState, doubleAccuracy) ?: true)
                 && (next.sliderState == null || this.sliderState?.match(next.sliderState, doubleAccuracy) ?: true)
     }
 }
