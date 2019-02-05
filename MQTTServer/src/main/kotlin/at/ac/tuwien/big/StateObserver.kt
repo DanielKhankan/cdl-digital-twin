@@ -19,7 +19,7 @@ object StateObserver : Observable<BasicState>() {
     /**
      * Most recently observed state
      */
-    private var snapshot: Environment = Environment(RoboticArmState(), SliderState(), ConveyorState(), TestingRigState())
+    private var snapshot: Environment = Environment(RoboticArmState(), ConveyorState(), TestingRigState(), SliderState())
 
     /**
      * Latest matching state, given the current job
