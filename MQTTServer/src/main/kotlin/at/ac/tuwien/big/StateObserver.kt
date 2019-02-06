@@ -114,8 +114,8 @@ object StateObserver : Observable<BasicState>() {
             listOf(
                     RoboticArmTransition(RoboticArmState(), env.roboticArmState ?: RoboticArmState()),
                     ConveyorTransition(ConveyorState(), env.conveyorState ?: ConveyorState()),
-                    SliderTransition(SliderState(), env.sliderState ?: SliderState()),
-                    TestingRigTransition(TestingRigState(), env.testingRigState ?: TestingRigState())
+                    TestingRigTransition(TestingRigState(), env.testingRigState ?: TestingRigState()),
+                    SliderTransition(SliderState(), env.sliderState ?: SliderState())
             )
         } else {
             emptyList()
