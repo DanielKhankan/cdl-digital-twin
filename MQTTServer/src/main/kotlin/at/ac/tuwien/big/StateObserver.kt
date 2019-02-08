@@ -132,9 +132,9 @@ object StateObserver : Observable<BasicState>() {
             is RoboticArmTransition -> {
                 val target = transition.targetState
                 listOf(
-                        "base-goto ${target.basePosition} ${transition.baseSpeed}",
-                        "main-arm-goto ${target.mainArmPosition} ${transition.mainArmSpeed}",
-                        "second-arm-goto ${target.secondArmPosition} ${transition.secondArmSpeed}",
+                        "base-goto ${target.basePosition} 1.0",
+                        "main-arm-goto ${target.mainArmPosition} 1.0",
+                        "second-arm-goto ${target.secondArmPosition} 1.0",
                         "head-goto ${target.headPosition} 1.0",
                         "head-mount-goto ${target.headMountPosition} 1.0",
                         "gripper-goto ${target.gripperPosition} 1.0"

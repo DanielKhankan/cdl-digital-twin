@@ -7,8 +7,5 @@ import at.ac.tuwien.big.entity.state.RoboticArmState
  */
 data class RoboticArmTransition(
         override val startState: RoboticArmState,
-        override val targetState: RoboticArmState,
-        val baseSpeed: Double = 1.0,
-        val mainArmSpeed: Double = 1.0,
-        val secondArmSpeed: Double = 1.0
+        override val targetState: RoboticArmState
 ) : Transition
